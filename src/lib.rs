@@ -1,48 +1,64 @@
-pub mod day01 {
-    use std::{
-        fs::File,
-        io::{self, BufRead},
-        path::Path,
-    };
+pub mod day01;
+pub mod day02;
+pub mod day03;
+pub mod day04;
 
-    pub fn run() {
-        let mut max: i32 = 0;
-        let mut max3 = [0, 0, 0];
-        if let Ok(lines) = read_lines("./data/day1.txt") {
-            let mut sum = 0;
-            for line in lines {
-                if let Ok(calorie) = line {
-                    if let Ok(calorie_i32) = calorie.parse::<i32>() {
-                        sum += calorie_i32
-                    } else {
-                        for (i, x) in max3.into_iter().enumerate() {
-                            if sum > x {
-                                max3[i] = sum;
-                                max3.sort();
-                                break;
-                            }
-                        }
-                        if sum > max {
-                            max = sum
-                        }
-                        sum = 0
-                    }
+use std::error::Error;
+use std::fs::File;
+use std::io::{self};
+use std::path::Path;
+use std::{fmt, fs};
+
+pub type BoxResult<T> = Result<T, Box<dyn Error>>;
+
+#[derive(Debug, Clone)]
+pub struct AOCError;
+
+impl fmt::Display for AOCError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "unexpected error")
+    }
+}
+
+impl Error for AOCError {}
+
+#[macro_export]
+macro_rules! solve {
+    ($part:expr, $solver:ident, $input:expr) => {{
+        use std::fmt::Display;
+        use std::time::Instant;
+
+        fn print_result<T: Display>(func: impl FnOnce(&str) -> BoxResult<T>, input: &str) {
+            let timer = Instant::now();
+            let result = func(input);
+            let elapsed = timer.elapsed();
+            match result {
+                Ok(result) => {
+                    println!("{} (elapsed: {:.2?})", result, elapsed)
+                }
+                Err(_) => {
+                    println!("not solved.")
                 }
             }
         }
-        println!("Most calories carried by one elf {}", max);
-        println!("Most calories carried by three elf {:?}", max3);
-        println!(
-            "Sum of the most calories carried by three elf {}",
-            max3.iter().sum::<i32>()
-        );
-    }
 
-    fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-    where
-        P: AsRef<Path>,
-    {
-        let file = File::open(filename)?;
-        Ok(io::BufReader::new(file).lines())
-    }
+        println!("🎄 Part {} 🎄", $part);
+        print_result($solver, $input);
+    }};
+}
+
+pub fn read_file_to_buffer<P>(path: P) -> io::Result<io::BufReader<File>>
+where
+    P: AsRef<Path>,
+{
+    let file = File::open(path)?;
+    Ok(io::BufReader::new(file))
+}
+
+pub fn read_file_to_string<P>(path: P) -> String
+where
+    P: AsRef<Path>,
+{
+    let f = fs::read_to_string(path);
+    f.expect("coul not open input file")
 }
