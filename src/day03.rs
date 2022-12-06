@@ -39,7 +39,7 @@ fn part_two(input: &str) -> BoxResult<usize> {
 }
 
 pub fn run() {
-    let input = &read_file_to_string("./inputs/day3.txt");
+    let input = &read_file_to_string("./inputs/day03.txt");
     solve!(1, part_one, input);
     solve!(2, part_two, input);
 }
@@ -51,13 +51,13 @@ mod tests {
 
     #[test]
     fn test_part_one() {
-        let input = &read_file_to_string("./examples/day3.txt");
+        let input = &read_file_to_string("./examples/day03.txt");
         assert_eq!(part_one(input).ok(), Some(157));
     }
 
     #[test]
     fn test_part_two() {
-        let input = &read_file_to_string("./examples/day3.txt");
+        let input = &read_file_to_string("./examples/day03.txt");
         assert_eq!(part_two(input).ok(), Some(70));
     }
 }

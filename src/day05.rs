@@ -79,7 +79,7 @@ fn part_two(input: &str) -> BoxResult<String> {
 }
 
 pub fn run() {
-    let input = &read_file_to_string("./inputs/day5.txt");
+    let input = &read_file_to_string("./inputs/day05.txt");
     solve!(1, part_one, input);
     solve!(2, part_two, input);
 }
@@ -91,13 +91,13 @@ mod tests {
 
     #[test]
     fn test_part_one() {
-        let input = &read_file_to_string("./examples/day5.txt");
+        let input = &read_file_to_string("./examples/day05.txt");
         assert_eq!(part_one(input).ok(), Some(String::from("CMZ")));
     }
 
     #[test]
     fn test_part_two() {
-        let input = &read_file_to_string("./examples/day5.txt");
+        let input = &read_file_to_string("./examples/day05.txt");
         assert_eq!(part_two(input).ok(), Some(String::from("MCD")));
     }
 }
