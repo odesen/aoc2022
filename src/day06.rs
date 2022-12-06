@@ -1,37 +1,27 @@
 use std::collections::HashSet;
 
-use crate::{read_file_to_string, solve, BoxResult};
+use crate::{read_file_to_string, solve, AOCError, BoxResult};
 
 fn part_one(input: &str) -> BoxResult<usize> {
     let chars: Vec<char> = input.chars().collect();
-    let mut i = 0;
-    let mut f = false;
-    let mut res = 0;
-    while i < (chars.len() - 4) && !f {
-        let set: HashSet<&char> = HashSet::from_iter(&chars[i..i + 4]);
-        if set.len() == 4 {
-            f = true;
-            res = i + 4
+    for i in 0..chars.len() {
+        let sl: HashSet<&char> = HashSet::from_iter(&chars[i..i + 4]);
+        if sl.len() == 4 {
+            return Ok(i + 4);
         }
-        i += 1;
     }
-    Ok(res)
+    Err(Box::new(AOCError))
 }
 
 fn part_two(input: &str) -> BoxResult<usize> {
     let chars: Vec<char> = input.chars().collect();
-    let mut i = 0;
-    let mut f = false;
-    let mut res = 0;
-    while i < (chars.len() - 14) && !f {
-        let set: HashSet<&char> = HashSet::from_iter(&chars[i..i + 14]);
-        if set.len() == 14 {
-            f = true;
-            res = i + 14
+    for i in 0..chars.len() {
+        let sl: HashSet<&char> = HashSet::from_iter(&chars[i..i + 14]);
+        if sl.len() == 14 {
+            return Ok(i + 14);
         }
-        i += 1;
     }
-    Ok(res)
+    Err(Box::new(AOCError))
 }
 
 pub fn run() {
