@@ -1,6 +1,6 @@
 use std::error::Error;
 
-use aoc2022::{day01, day02, day03, day04, day05, day06, day08, day09};
+use aoc2022::{day01, day02, day03, day04, day05, day06, day08, day09, day10};
 
 fn main() -> Result<(), Box<dyn Error>> {
     day01::run();
@@ -12,5 +12,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     // day07::run();
     day08::run();
     day09::run();
+    day10::run();
     Ok(())
 }
