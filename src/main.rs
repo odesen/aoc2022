@@ -2,6 +2,7 @@ use std::error::Error;
 
 use aoc2022::{
     day01, day02, day03, day04, day05, day06, day07, day08, day09, day10, day11, day12, day13,
+    day14,
 };
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -31,5 +32,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     day12::run();
     println!("--Day 13--");
     day13::run();
+    println!("--Day 14--");
+    day14::run();
     Ok(())
 }
